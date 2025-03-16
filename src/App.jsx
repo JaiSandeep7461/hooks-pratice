@@ -6,6 +6,7 @@ import EffectComparison from "./components/effectComparison";
 import UseRefVsUseState from "./components/useRefUseEffectExample";
 import PropDrill from "./components/prop-drill";
 import ThemeSwitcher from "./components/theme-switcher";
+import Counter from "./components/shopping-cart";
 
 function App() {
 
@@ -19,21 +20,7 @@ function App() {
 
   return (
     <div>
-    <ThemeSwitcher />
-    <br/>
-      <input
-        type="text"
-        placeholder="Type Something..."
-        value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
-        ref={inputRef}
-      />
-      <p>
-        You typed: <strong>{inputValue}</strong>
-      </p>
-
-      <PropDrill state={inputValue}/>
-      
+    <Counter/>
     </div>
   );
 }
