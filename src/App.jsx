@@ -4,6 +4,8 @@ import HookExample from "./components/hooks-example";
 import DataFetcher from "./components/dataFetcher";
 import EffectComparison from "./components/effectComparison";
 import UseRefVsUseState from "./components/useRefUseEffectExample";
+import PropDrill from "./components/prop-drill";
+import ThemeSwitcher from "./components/theme-switcher";
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
 
   return (
     <div>
+    <ThemeSwitcher />
+    <br/>
       <input
         type="text"
         placeholder="Type Something..."
@@ -28,7 +32,7 @@ function App() {
         You typed: <strong>{inputValue}</strong>
       </p>
 
-      <UseRefVsUseState/>
+      <PropDrill state={inputValue}/>
       
     </div>
   );
