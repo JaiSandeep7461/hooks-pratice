@@ -1,21 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import HookExample from "./components/hooks-example";
 import DataFetcher from "./components/dataFetcher";
 import EffectComparison from "./components/effectComparison";
+import UseRefVsUseState from "./components/useRefUseEffectExample";
 
 function App() {
 
   const [inputValue, setInputValue] = useState("");
-  const [count, setCount] = useState(0);
-  const [toggle,setToggle] = useState(true);
+  const inputRef = useRef(null);
 
-  useEffect(
-    () => {
-      console.log("Count Changes Done");
-    },
-    [count]
-  );
+  useEffect(()=>{
+    inputRef.current && inputRef.current.focus();
+  },[]);
+
 
   return (
     <div>
@@ -24,18 +22,14 @@ function App() {
         placeholder="Type Something..."
         value={inputValue}
         onChange={e => setInputValue(e.target.value)}
+        ref={inputRef}
       />
       <p>
         You typed: <strong>{inputValue}</strong>
       </p>
-      <p>
-        You clicked {count} times{" "}
-      </p>
-      <button onClick={()=>setCount(count + 1)}>Click me </button>
-      {toggle && <HookExample/>}
-      <button onClick={()=>setToggle(!toggle)}>Toggle</button>
-      {/* <DataFetcher/> */}
-      <EffectComparison/>
+
+      <UseRefVsUseState/>
+      
     </div>
   );
 }
