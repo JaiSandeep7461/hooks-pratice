@@ -7,6 +7,7 @@ import UseRefVsUseState from "./components/useRefUseEffectExample";
 import PropDrill from "./components/prop-drill";
 import ThemeSwitcher from "./components/theme-switcher";
 import Counter from "./components/shopping-cart";
+import ShoppingCart from "./components/shopping-cart";
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
 
   return (
     <div>
-    <Counter/>
+    {/* <Counter/> */}
+    <ShoppingCart/>
     </div>
   );
 }

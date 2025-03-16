@@ -1,32 +1,56 @@
-import { useReducer, useState } from "react";
+import React, { useReducer } from "react";
+const initialCart =[];
 
-const initialState = 0;
-
-function countReducer(state, action) {
-  switch (action.type) {
-    case "INCREMENT":
-      return state + action.value;
-    case "DECREMENT":
-      return state - 1;
-    case "RESET":
-      return 0;
+function cartReducer(state,action){
+  switch(action.type){
+    case "ADD_ITEM":
+      return [...state,{...action.payload,quantity:1}];
+    case "REMOVE_ITEM":
+      return state.filter((item)=> item.id!==action.payload.id);
+    case "CLEAR_CART":
+      return [];
     default:
-      return state;
+      throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
 
-const Counter = () => {
-const [count,dispatch] =  useReducer(countReducer,initialState);
+const ShoppingCart = () =>{
+  const [cart,dispatch] = useReducer(cartReducer,initialCart);
+  const handleAdd = (item) =>{
+    dispatch({type:"ADD_ITEM",payload:item});
+  };
+
+  const handleRemove = (item) =>{
+    dispatch({type:"REMOVE_ITEM",payload:item});
+  };
+
+  const handleClearCart = () =>{
+    dispatch({type:"CLEAR_CART"});
+  };
+
+  const totalPrice = cart.reduce((total,item)=> total+item.price*item.quantity,0);
+
   return (
     <div>
-      <h2>
-        Count: {count}
-      </h2>
-      <button onClick={() => dispatch({type:"INCREMENT",value:5})}>Increment by 5</button>
-      <button onClick={() =>dispatch({type:"DECREMENT"})}>-</button>
-      <button onClick={() => dispatch({type:"RESET"})}>Reset</button>
+      <h2>Shopping Cart</h2>
+      <ul>
+        {cart.map((item)=>(
+          <li key={item.id}>
+            <span>
+              {item.name} - ${item.price}
+            </span>
+            <span>Quantity: {item.quantity}</span>
+            <button onClick={()=> handleRemove(item)}>Remove </button>
+          </li>
+        ))}
+      </ul>
+      <h3>Total: ${totalPrice}</h3>
+      <button onClick={()=> handleAdd({id:Date.now(),name:"New Item",price:10})}>
+        Add Item
+      </button>
+      <button onClick={handleClearCart}>Clear Chat</button>
     </div>
   );
-};
+}
 
-export default Counter;
+export default ShoppingCart;
