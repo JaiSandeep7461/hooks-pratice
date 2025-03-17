@@ -9,6 +9,7 @@ import ThemeSwitcher from "./components/theme-switcher";
 import Counter from "./components/shopping-cart";
 import ShoppingCart from "./components/shopping-cart";
 import FancyInput from "./components/fancyInput";
+import CheckBox from "./components/checkbox";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <FancyInput ref={fancyInputRef}/>
       <button onClick={()=> fancyInputRef.current.focus()}>Focus</button>
       <button onClick={()=> fancyInputRef.current.clear()}>Clear</button>
+      <CheckBox/>
     </div>
   );
 }
