@@ -1,34 +1,31 @@
-import { useState } from "react";
+import { useActionState } from "react";
 import { loginUser } from "../api/user";
 
 const Login = () =>{
 
-    const [user,setUser] = useState(null);
-    const [error,setError] = useState(null);
-    const [isPending,setIsPending] = useState(false);
+    const [user,submitAction,isPending] =  useActionState(login,{
+        data:null,
+        error:null
+    });
 
-    const handleSubmit = async (formData) =>{
 
-        setIsPending(true);
-        setUser(null);
-        setError(null);
+      async function login(prevState,formData){
+
         const username = formData.get("username");
         const password = formData.get("password");
-        
+
         try {
             const response = await loginUser(username,password);
-            setUser(response.data);
+            return {data:response.data,error:null}
         } catch (error) {
-            setError(error.error);
-        }finally{
-            setIsPending(false);
+         return {data:null,error:error.error};
         }
     }
 
 
 
     return (
-        <form action={handleSubmit}>
+        <form action={submitAction}>
         <div>
             <label>Username:</label>
             <input name="username" type="text" required/>
@@ -38,8 +35,8 @@ const Login = () =>{
             <input name="password" type="password"  required/>
         </div>
         <button type="submit" disabled={isPending}>{isPending ? "Logging in...":"Login"}</button>
-        {user && <p style={{color:"green"}}>Logged in: {user.email}</p>}
-        {error && <p style={{color:"red"}}>{error}</p>}
+        {user?.data && <p style={{color:"green"}}>Logged in: {user.data.email}</p>}
+        {user.error && <p style={{color:"red"}}>{user.error}</p>}
         </form>
     )
 }
