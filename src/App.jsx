@@ -9,21 +9,14 @@ import ThemeSwitcher from "./components/theme-switcher";
 import Counter from "./components/shopping-cart";
 import ShoppingCart from "./components/shopping-cart";
 import FancyInput from "./components/fancyInput";
-import CheckBox from "./components/checkbox";
+import Login from "./components/login";
 
 function App() {
-
   const fancyInputRef = useRef();
 
- 
   return (
     <div>
-      {/* <Counter/> */}
-      {/* <ShoppingCart/> */}
-      <FancyInput ref={fancyInputRef}/>
-      <button onClick={()=> fancyInputRef.current.focus()}>Focus</button>
-      <button onClick={()=> fancyInputRef.current.clear()}>Clear</button>
-      <CheckBox/>
+      <Login />
     </div>
   );
 }
